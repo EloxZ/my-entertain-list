@@ -19,7 +19,7 @@ export default function Login() {
           <div className="mx-auto max-w-fit">
             <UsernameInput className='mb-4'/>
             <PasswordInput className='mb-5'/>
-            <PurpleButton className='mx-auto w-full text-center' href="/signup" text="LOG IN"/>
+            <PurpleButton className='mx-auto w-full text-center' href="" text="LOG IN"/>
             <div className="divider">Or log in via</div>
             <div className="flex flex-row gap-2">
               <WhiteButton className="w-full justify-center" text={<GoogleSVG width="25px" height="25px"/>}/>
