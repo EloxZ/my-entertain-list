@@ -3,25 +3,32 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+  --dark-purple: #2F1971;
+  --vivid-violet: rgb(192, 57, 255);
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background-color: #050517;
+  color: white;
 }
+
+input:focus {
+  outline: 3px solid var(--vivid-violet);
+}
+
+.bg-vivid-violet {
+  background-color: var(--vivid-violet);
+}
+
+.text-vivid-violet {
+  color: var(--vivid-violet);
+}
+
+.hover-bg-vivid-violet:hover {
+  background-color: rgb(174, 13, 248);
+}
+
+.bg-dark-purple {
+  background-color: var(--dark-purple);
+}
+
