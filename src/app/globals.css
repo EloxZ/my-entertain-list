@@ -4,31 +4,58 @@
 
 :root {
   --dark-purple: #2F1971;
-  --vivid-violet: rgb(192, 57, 255);
+  --electric-violet: #e100ff;
+  --darker-electric-violet: #cb03e6;
+  --haiti: #050517;
 }
 
 body {
-  background-color: #050517;
   color: white;
 }
 
+html, body {
+  height: 100%;
+}
+
+.background {
+  background-image: url("/images/bg.png");
+  background-repeat: repeat;
+  background-size: 1000px;
+}
+
 input:focus {
-  outline: 3px solid var(--vivid-violet);
+  outline: 3px solid var(--electric-violet);
 }
 
-.bg-vivid-violet {
-  background-color: var(--vivid-violet);
+.bg-darker-haiti {
+  background-color: #02020a;
 }
 
-.text-vivid-violet {
-  color: var(--vivid-violet);
+.bg-electric-violet {
+  background-color: var(--electric-violet);
 }
 
-.hover-bg-vivid-violet:hover {
-  background-color: rgb(174, 13, 248);
+.text-electric-violet {
+  color: var(--electric-violet);
 }
 
-.bg-dark-purple {
-  background-color: var(--dark-purple);
+.hover-text-electric-violet:hover {
+  color: var(--electric-violet);
+}
+
+.border-electric-violet {
+  border-color: var(--electric-violet);
+}
+
+.hover-outline-electric-violet:hover {
+  outline: 2px solid var(--electric-violet);
+}
+
+.hover-bg-darker-electric-violet:hover {
+  background-color: var(--darker-electric-violet);
+}
+
+.bg-haiti {
+  background-color: var(--haiti);
 }
 
