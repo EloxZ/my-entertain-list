@@ -17,6 +17,11 @@ html, body {
   height: 100%;
 }
 
+.search-button {
+  height: 2.25rem;
+  padding-top: 7px;
+}
+
 .background {
   background-image: url("/images/bg.png");
   background-repeat: repeat;
@@ -33,6 +38,10 @@ input:focus {
 
 .bg-electric-violet {
   background-color: var(--electric-violet);
+}
+
+.selected-title, .selected-title:hover {
+  outline: 3px solid var(--electric-violet) !important;
 }
 
 .text-electric-violet {
@@ -57,5 +66,18 @@ input:focus {
 
 .bg-haiti {
   background-color: var(--haiti);
+}
+
+.overview-wrapper {
+  background-color: rgb(0, 0, 0, 0.5);
+  height: calc(30vh - 60px);
+  backdrop-filter: blur(4px);
+  width: 950px;
+  margin: 30px auto;
+  border-radius: 0.375rem;
+  padding: 40px;
+  display: flex;
+  gap: 60px;
+  justify-content: center;
 }
 

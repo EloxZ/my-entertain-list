@@ -44,16 +44,6 @@ function loadPageButtons(pages, currentPage, setCurrentPage) {
                     onClick={()=>setCurrentPage(currentPage-i)}
                 />
             );
-
-            if (i == ADJACENT_BUTTONS && currentPage-i > 2) {
-                pageButtons.unshift(
-                    <MidGroupButton
-                        key={"group"+i}
-                        text="..."
-                        isDisabled={true}
-                    />
-                );
-            }
         }
 
         if (currentPage+i < pages) {
@@ -64,17 +54,27 @@ function loadPageButtons(pages, currentPage, setCurrentPage) {
                     onClick={()=>setCurrentPage(currentPage+i)}
                 />
             );
-
-            if (i == ADJACENT_BUTTONS && currentPage+i < pages-1) {
-                pageButtons.push(
-                    <MidGroupButton
-                        key={"group"+i}
-                        text="..."
-                        isDisabled={true}
-                    />
-                );
-            }
         }
+    }
+
+    if (currentPage-ADJACENT_BUTTONS > 2) {
+        pageButtons.unshift(
+            <MidGroupButton
+                key={"group1"}
+                text="..."
+                isDisabled={true}
+            />
+        );
+    }
+
+    if (currentPage+ADJACENT_BUTTONS < pages-1) {
+        pageButtons.push(
+            <MidGroupButton
+                key={"group2"}
+                text="..."
+                isDisabled={true}
+            />
+        );
     }
 
     if (currentPage != 1) {

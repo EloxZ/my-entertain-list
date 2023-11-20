@@ -1,7 +1,8 @@
 export default function SearchInput(props) {
+
     return (
         <div className="relative">
-            <input type="text" className={"h-9 peer py-3 px-4 ps-11 block w-full bg-white rounded-lg text-sm text-black " + props.className} placeholder={props.placeholder ?? "Search"} value={props.value} onChange={props.onChange}/>
+            <input autoComplete="off" id={props.id} onKeyDown={(event)=>{if (event.key === 'Enter') props.onSearch(null, 1);}} ref={props.searchRef} type="text" className={"h-9 peer py-3 px-4 ps-11 block w-full bg-white rounded-lg text-sm text-black " + props.className} placeholder={props.placeholder ?? "Search"} value={props.value} onChange={props.onChange}/>
             <div className="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-3">
                 <svg height={25} width={25} className="w-5 h-5 text-electric-violet" viewBox="0 -0.5 25 25" fill="white" xmlns="http://www.w3.org/2000/svg">
                     <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>

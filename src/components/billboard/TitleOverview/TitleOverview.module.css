@@ -1,4 +1,8 @@
 .titleOverview {
     height: 30vh;
     background-color: black;
+
+    position: relative;
+    overflow: hidden;
 }
+

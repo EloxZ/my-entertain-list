@@ -4,19 +4,28 @@ import Image from 'next/image'
 export default function Title(props) {
     const HEIGHT = 213;
     const WIDTH = HEIGHT * 0.675;
-    let image;
-    let titleText = "Probando";
+    let titlePoster;
 
-    if (props.imgSrc) {
-        image = <Image width={WIDTH} height={HEIGHT} src={props.imgSrc}/>;
-        titleText = "";
+    const onSelected = () => {
+        if (props.isSelected) {
+            // go to title page
+        } else {
+            props.setSelectedTitle({...props.data});
+        }
+        
+    }
+
+    if (props.posterPath) {
+        titlePoster = <Image alt={props.title} className="rounded-md" width={WIDTH} height={HEIGHT} src={"https://image.tmdb.org/t/p/w500" + props.posterPath}/>;
+    } else {
+        titlePoster = <div className='text-center break-words text-white px-2 h-full flex flex-col justify-center'>
+            {props.title}
+        </div>
     }
 
     return (
-        <div className='bg-white rounded-md text-black hover-outline-electric-violet cursor-pointer' style={{width:WIDTH, height:HEIGHT}}>
-            <div className='mt-4 px-4 text-center break-words'>{titleText}</div>
-            {image}
-        </div>
-        
+        <div onClick={onSelected} className={'bg-gray-800 rounded-md hover-outline-electric-violet cursor-pointer ' + ((props.isSelected)? "selected-title" : "")} style={{width:WIDTH, height:HEIGHT}}>
+            {titlePoster}
+        </div> 
     )
 }

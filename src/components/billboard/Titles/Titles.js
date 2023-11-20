@@ -11,14 +11,20 @@ export default function Titles(props) {
                 categories={props.categories}
                 selectedCategory={props.selectedCategory}
                 setSelectedCategory={props.setSelectedCategory}
+                onSearch={props.onSearch}
+                searchRef={props.searchRef}
             />
             <div className={styles.titleContainerWrapper}>
-                <TitlesContainer/>
+                <TitlesContainer 
+                    titles={props.titles}
+                    setSelectedTitle={props.setSelectedTitle}
+                    selectedTitle={props.selectedTitle}
+                />
             </div>
             <div className='flex justify-center'>
                 <Pagination
-                    pages={props.pages}
-                    currentPage={props.currentPage}
+                    pages={Math.min(props.pageLimit, props.titles?.total_pages ?? 1)}
+                    currentPage={props.titles?.page ?? 1}
                     setCurrentPage={props.setCurrentPage}
                 />
             </div>

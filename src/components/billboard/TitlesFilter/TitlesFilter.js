@@ -1,3 +1,4 @@
+import ElectricButton from '@/components/global/ElectricButton/ElectricButton';
 import LeftGroupButton from '@/components/global/LeftGroupButton/LeftGroupButton'
 import MidGroupButton from '@/components/global/MidGroupButton/MidGroupButton'
 import RightGroupButton from '@/components/global/RightGroupButton/RightGroupButton'
@@ -12,7 +13,11 @@ export default function TitlesFilter(props) {
             <div style={{marginTop:5}}>
                 {categoriesButtonGroup}
             </div>
-            <SearchInput/>
+            <div className='flex gap-2'>
+                <SearchInput id="movieSearch" searchRef={props.searchRef} onSearch={props.onSearch}/>
+                <ElectricButton text="Search" onClick={props.onSearch} className="search-button"/>
+            </div>
+            
         </div>
     )
 }
