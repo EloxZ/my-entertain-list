@@ -20,10 +20,20 @@ async function getSearchMovies(query, page) {
     return getData('http://localhost:3000/api/movies?page='+page+'&query='+query);
 }
 
+async function getMovieDetails(id) {
+    return getData('http://localhost:3000/api/movies?id='+id);
+}
+
+async function getMovieTrailer(id) {
+    return getData('http://localhost:3000/api/movies/trailer?id='+id);
+}
+
 export {
     getNowPlayingMovies,
     getPopularMovies,
     getTopRatedMovies,
     getUpcomingMovies,
-    getSearchMovies
+    getSearchMovies,
+    getMovieTrailer,
+    getMovieDetails
 }

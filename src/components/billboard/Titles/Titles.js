@@ -19,6 +19,7 @@ export default function Titles(props) {
                     titles={props.titles}
                     setSelectedTitle={props.setSelectedTitle}
                     selectedTitle={props.selectedTitle}
+                    setCurrentSection={props.setCurrentSection}
                 />
             </div>
             <div className='flex justify-center'>

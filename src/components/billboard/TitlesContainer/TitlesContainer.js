@@ -3,7 +3,7 @@ import Title from '../Title/Title'
 
 export default function TitlesContainer(props) {
     const divRef = useRef(null);
-    const titles = loadTitles(props.titles?.results, props.selectedTitle, props.setSelectedTitle);
+    const titles = loadTitles(props.titles?.results, props.selectedTitle, props.setSelectedTitle, props.setCurrentSection);
 
     useEffect(()=>{
         scrollToTop(divRef);
@@ -17,7 +17,7 @@ export default function TitlesContainer(props) {
     )
 }
 
-function loadTitles(results, selectedTitle, setSelectedTitle) {
+function loadTitles(results, selectedTitle, setSelectedTitle, setCurrentSection) {
     const titlesList = [];
     if (results) {
         for (const result of results) {
@@ -25,10 +25,10 @@ function loadTitles(results, selectedTitle, setSelectedTitle) {
                 <Title
                     data={result}
                     key={result.id}
-                    title={result.title}
                     posterPath={result.poster_path}
                     isSelected={selectedTitle?.id === result.id ?? false}
                     setSelectedTitle={setSelectedTitle}
+                    setCurrentSection={setCurrentSection}
                 />
             );
         }

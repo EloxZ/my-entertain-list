@@ -1,9 +1,12 @@
 "use client";
 
+import AddMovie from "@/components/billboard/AddMovie/AddMovie";
+import MovieInfo from "@/components/billboard/MovieInfo/MovieInfo";
 import TitleOverview from "@/components/billboard/TitleOverview/TitleOverview";
 import Titles from "@/components/billboard/Titles/Titles";
+import TrailerVideo from "@/components/billboard/TrailerVideo/TrailerVideo";
 import Navbar from "@/components/header/Navbar/Navbar";
-import { getNowPlayingMovies, getPopularMovies, getTopRatedMovies, getUpcomingMovies, getSearchMovies } from "@/features/movies/data";
+import { getNowPlayingMovies, getPopularMovies, getTopRatedMovies, getUpcomingMovies, getSearchMovies, getMovieTrailer, getMovieDetails } from "@/features/movies/data";
 import { MovieCategories } from "@/utils/title-filter";
 import { useState, useEffect, useRef } from "react";
 
@@ -15,6 +18,8 @@ export default function Movies() {
     const [selectedCategory, setSelectedCategory] = useState(MovieCategories.nowPlaying.tag);
     const [titles, setTitles] = useState();
     const [selectedTitle, setSelectedTitle] = useState();
+    const [trailer, setTrailer] = useState();
+    const [movieDetails, setMovieDetails] = useState();
 
     const [savedNowPlayingMovies, setSavedNowPlayingMovies] = useState();
     const [savedPopularMovies, setSavedPopularMovies] = useState();
@@ -64,27 +69,34 @@ export default function Movies() {
     useEffect(()=>{
         getNowPlayingMovies(1).then((value)=>{
             setSavedNowPlayingMovies(value.data);
-            if (selectedCategory === MovieCategories.nowPlaying.tag) setTitles(value.data);
+            if (selectedCategory === MovieCategories.nowPlaying.tag) {
+                setTitles(value.data);
+                setSelectedTitle({...value.data.results[0]});
+            };
         });
         getPopularMovies(1).then((value)=>{
             setSavedPopularMovies(value.data);
-            if (selectedCategory === MovieCategories.popular.tag) setTitles(value.data);
+            if (selectedCategory === MovieCategories.popular.tag) {
+                setTitles(value.data);
+                setSelectedTitle({...value.data.results[0]});
+            };
         });
         getTopRatedMovies(1).then((value)=>{
             setSavedTopRatedMovies(value.data);
-            if (selectedCategory === MovieCategories.topRated.tag) setTitles(value.data);
+            if (selectedCategory === MovieCategories.topRated.tag) {
+                setTitles(value.data);
+                setSelectedTitle({...value.data.results[0]});
+            };
         });
         getUpcomingMovies(1).then((value)=>{
             setSavedUpcomingMovies(value.data);
-            if (selectedCategory === MovieCategories.upcoming.tag) setTitles(value.data);
+            if (selectedCategory === MovieCategories.upcoming.tag) {
+                setTitles(value.data);
+                setSelectedTitle({...value.data.results[0]});
+            };
         });
 
     }, []);
-
-    useEffect(()=>{
-        console.log("Titles changed");
-        console.log(titles);
-    }, [titles]);
 
     useEffect(()=>{
         let selectedTitles;
@@ -107,25 +119,66 @@ export default function Movies() {
         if (selectedTitles) setTitles(selectedTitles);
     }, [selectedCategory]);
 
+    useEffect(()=>{
+        if (selectedTitle) {
+            getMovieTrailer(selectedTitle.id).then((value) => {
+                setTrailer(value.res);
+            });
+            getMovieDetails(selectedTitle.id).then((value) => {
+                setMovieDetails(value.data);
+            });
+        }
+    }, [selectedTitle]);
+
+    const [currentSection, setCurrentSection] = useState("titles");
+
+    const titlesSection = <div className="mt-6">
+        <Titles
+            titles={titles}
+            categories={MovieCategories}
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
+            titlesPerPage={TITLES_PER_PAGE}
+            pageLimit={PAGE_LIMIT}
+            setCurrentPage={fetchNewPage}
+            onSearch={searchMovies}
+            searchRef={searchRef}
+            setSelectedTitle={setSelectedTitle}
+            selectedTitle={selectedTitle}
+            setCurrentSection={setCurrentSection}
+        />
+    </div>
+
+    const infoSection = <MovieInfo movieDetails={movieDetails}/>
+    const addMovieSection = <AddMovie/>
+    const trailerSection = <TrailerVideo trailer={trailer}/>
+
+
+    const section = (currentSection) => {
+        switch(currentSection) {
+            case "titles":
+                return titlesSection;
+            case "info":
+                return infoSection;
+            case "trailer":
+                return trailerSection;
+            case "add":
+                return addMovieSection;
+        }
+    }
+
     return (
         <div className="h-full">
-            <Navbar/>
-            <TitleOverview selectedTitle={selectedTitle}/>
+            <Navbar active="movies"/>
+            <TitleOverview 
+                selectedTitle={selectedTitle} 
+                setCurrentSection={setCurrentSection} 
+                currentSection={currentSection}
+                isTrailerAvailable={trailer != null}
+            />
             <div className="fixed w-full h-screen bg-haiti mx-auto">
-                <div className="flex justify-center mt-6">
-                    <Titles
-                        titles={titles}
-                        categories={MovieCategories}
-                        selectedCategory={selectedCategory}
-                        setSelectedCategory={setSelectedCategory}
-                        titlesPerPage={TITLES_PER_PAGE}
-                        pageLimit={PAGE_LIMIT}
-                        setCurrentPage={fetchNewPage}
-                        onSearch={searchMovies}
-                        searchRef={searchRef}
-                        setSelectedTitle={setSelectedTitle}
-                        selectedTitle={selectedTitle}
-                    />
+                <div className="flex justify-center">
+                    {section(currentSection)}
                 </div>
             </div> 
         </div>

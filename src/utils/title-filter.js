@@ -1,4 +1,4 @@
-const TVCategories = {
+const ShowCategories = {
     airingToday: {
         name: "Airing Today",
         tag: "airToday"
@@ -64,6 +64,9 @@ const MovieGenres = {
     14: {
         name: "Fantasy"
     },
+    36: {
+        name: "History"
+    },
     27: {
         name: "Horror"
     },
@@ -93,6 +96,57 @@ const MovieGenres = {
     }
 }
 
+const ShowGenres = {
+    10759: {
+        name: "Action & Adventure"
+    },
+    16: {
+        name: "Animation"
+    },
+    35: {
+        name: "Comedy"
+    },
+    80: {
+        name: "Crime"
+    },
+    99: {
+        name: "Documentary"
+    },
+    18: {
+        name: "Drama"
+    },
+    10751: {
+        name: "Family"
+    },
+    10762: {
+        name: "Kids"
+    },
+    9648: {
+        name: "Mystery"
+    },
+    10763: {
+        name: "News"
+    },
+    10764: {
+        name: "Reality"
+    },
+    10765: {
+        name: "Sci-Fi & Fantasy"
+    },
+    10766: {
+        name: "Soap"
+    },
+    10767: {
+        name: "Talk"
+    },
+    10768: {
+        name: "War & Politics"
+    },
+    37: {
+        name: "Western"
+    }
+}
+
 export {
-    TVCategories, MovieCategories, MovieGenres
+    ShowCategories, MovieCategories, MovieGenres, ShowGenres
 }

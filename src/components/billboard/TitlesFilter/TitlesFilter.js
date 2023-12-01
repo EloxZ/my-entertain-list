@@ -4,18 +4,19 @@ import MidGroupButton from '@/components/global/MidGroupButton/MidGroupButton'
 import RightGroupButton from '@/components/global/RightGroupButton/RightGroupButton'
 import SearchInput from '@/components/global/SearchInput/SearchInput';
 import React from 'react'
+import styles from './TitlesFilter.module.css';
 
 export default function TitlesFilter(props) {
     const categoriesButtonGroup = loadCategories(props.categories, props.selectedCategory, props.setSelectedCategory);
     
     return (
-        <div className='flex flex-row justify-between'>
+        <div className={styles.titlesFilter}>
             <div style={{marginTop:5}}>
                 {categoriesButtonGroup}
             </div>
             <div className='flex gap-2'>
                 <SearchInput id="movieSearch" searchRef={props.searchRef} onSearch={props.onSearch}/>
-                <ElectricButton text="Search" onClick={props.onSearch} className="search-button"/>
+                <ElectricButton text="Search" onClick={props.onSearch} className="small-button"/>
             </div>
             
         </div>

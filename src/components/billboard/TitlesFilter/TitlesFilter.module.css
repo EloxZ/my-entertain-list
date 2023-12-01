@@ -1,0 +1,12 @@
+.titlesFilter {
+    display: flex;
+    justify-content: space-between;
+}
+
+@media (max-width: 790px) {
+    .titlesFilter {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+    }
+  }
