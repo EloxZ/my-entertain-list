@@ -80,6 +80,51 @@ input:focus {
   flex-direction: column;
 }
 
+.p-datatable th:first-child {
+  border-radius: 8px 0px 0px!important;
+}
+
+.p-datatable th:last-child {
+  border-radius: 0px 8px 0px 0px!important;
+}
+
+.p-datatable tr:last-child td:last-child {
+  border-radius: 0px 0px 8px 0px!important;
+}
+
+.p-datatable tr:last-child td:first-child {
+  border-radius: 0px 0px 0px 8px!important;
+}
+
+.Dropped-label {
+  background-color: red;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+.Planned-label {
+  background-color: var(--electric-violet);
+  color: white;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+.Watched-label {
+  background-color: green;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+.score-field {
+  font-size: 2.5rem;
+}
+
+
 .nav-space {
   width: 256px;
 }

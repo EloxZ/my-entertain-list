@@ -14,7 +14,7 @@ export default function Menu(props) {
             <nav className="-mb-0.5 flex">
                 <MenuButton icon={feedIcon} href="/feed" text="Feed" isActive={props.active === "feed" ?? false}/>
                 <MenuButton icon={movieIcon} href="/movies" text="Movies" isActive={props.active === "movies" ?? false}/>
-                <MenuButton icon={showIcon} href="/shows" text="TV Shows" isActive={props.active === "shows" ?? false}/>
+                <MenuButton icon={showIcon} href="/shows" text="Shows" isActive={props.active === "shows" ?? false}/>
                 <MenuButton icon={listIcon} href="/list" text="List" isActive={props.active === "list" ?? false}/>
             </nav>
         </div>
