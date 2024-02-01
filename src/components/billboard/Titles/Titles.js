@@ -6,7 +6,7 @@ import Pagination from '@/components/global/Pagination/Pagination';
 
 export default function Titles(props) {
     return (
-        <div className={styles.titles}>
+        <div className={styles.titles + " "}>
             <TitlesFilter
                 categories={props.categories}
                 selectedCategory={props.selectedCategory}
@@ -29,7 +29,6 @@ export default function Titles(props) {
                     setCurrentPage={props.setCurrentPage}
                 />
             </div>
-            
         </div>
     )
 }

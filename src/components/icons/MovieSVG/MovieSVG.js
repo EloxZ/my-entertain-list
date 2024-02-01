@@ -1,12 +1,12 @@
 import React from 'react'
 
-export default function MovieSVG() {
+export default function MovieSVG(props) {
     return (
         <svg
-        width={40}
-        height={40}
+          width={props.width ?? 40}
+          height={props.height ?? 40}
           xmlns="http://www.w3.org/2000/svg"
-          fill="#fff"
+          fill={props.fill ?? 'white'}
           stroke="#fff"
           baseProfile="full"
           viewBox="0 0 76 76"

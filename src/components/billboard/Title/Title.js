@@ -9,11 +9,10 @@ export default function Title(props) {
 
     const onSelected = () => {
         if (props.isSelected) {
-            props.setCurrentSection("info");
+            props.setCurrentSection("add");
         } else {
             props.setSelectedTitle({...props.data});
         }
-        
     }
 
     if (props.posterPath) {

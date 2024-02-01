@@ -11,7 +11,7 @@ export default function TitlesContainer(props) {
     
     
     return (
-        <div ref={divRef} id={props.id} className='bg-darker-haiti rounded-md h-full p-12 flex gap-8 flex-wrap overflow-y-auto'>
+        <div ref={divRef} id={props.id} className='titles-container bg-darker-haiti rounded-md p-12 flex gap-8 flex-wrap overflow-y-auto'>
             {titles}
         </div>
     )

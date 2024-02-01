@@ -5,21 +5,21 @@ import { minsToHours } from '@/utils/format';
 export default function MovieInfo(props) {
     return (
         <div className={styles.movieInfo}>
-            {entryInfo("Status", props.movieDetails.status)}
-            {entryInfo("Duration", minsToHours(props.movieDetails.runtime))}
-            {entryInfo("Release date", props.movieDetails.release_date)}
-            {entryInfo("Budget", "$" + props.movieDetails.budget)}
-            {entryInfo("Revenue", "$" + props.movieDetails.revenue)}
-            {entryInfo("Language", props.movieDetails.original_language)}
-            {entryInfo("Website", "Homepage", props.movieDetails.homepage)}
-            {entryInfo("Website", "IMDb", "https://www.imdb.com/title/" + props.movieDetails.imdb_id)}
+            {infoEntry("Status", props.movieDetails.status)}
+            {infoEntry("Duration", minsToHours(props.movieDetails.runtime))}
+            {infoEntry("Release date", props.movieDetails.release_date)}
+            {infoEntry("Budget", "$" + props.movieDetails.budget)}
+            {infoEntry("Revenue", "$" + props.movieDetails.revenue)}
+            {infoEntry("Language", props.movieDetails.original_language)}
+            {infoEntry("Website", "Homepage", props.movieDetails.homepage)}
+            {infoEntry("Website", "IMDb", "https://www.imdb.com/title/" + props.movieDetails.imdb_id)}
         </div>
     )
 }
 
 
 
-function entryInfo(label, value, link) {
+function infoEntry(label, value, link) {
     if (!value || !label || value.toString().includes("undefined")) {
         return <></>
     }

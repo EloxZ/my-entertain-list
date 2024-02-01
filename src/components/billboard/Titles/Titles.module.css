@@ -1,17 +1,11 @@
 .titles {
-    width: 1000px;
-    padding: 0px 20px;
-    height: calc(70vh - 170px);
+    padding: 20px;
+    position: relative;
+    max-width: 1000px;
+    margin: auto;
 }
 
 .titleContainerWrapper {
-    height: calc(100% - 80px);
     margin-top: 20px;
     margin-bottom: 20px;
-}
-
-@media (max-width: 999px) {
-  .titles {
-    width: 100%;
-  }
 }

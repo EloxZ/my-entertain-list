@@ -6,7 +6,7 @@ import TitleOverview from "@/components/billboard/TitleOverview/TitleOverview";
 import Titles from "@/components/billboard/Titles/Titles";
 import TrailerVideo from "@/components/billboard/TrailerVideo/TrailerVideo";
 import Navbar from "@/components/header/Navbar/Navbar";
-import { getAiringTodayShows, getOnTheAirShows, getPopularShows, getTopRatedShows, getSearchShows, getShowTrailer, getShowDetails } from "@/features/shows/data";
+import { getAiringTodayShows, getOnTheAirShows, getPopularShows, getTopRatedShows, getSearchShows, getShowTrailer, getShowDetails, getListShows, addShowToList, deleteShowFromList } from "@/features/shows/data";
 import { ShowCategories } from "@/utils/title-filter";
 import { useState, useEffect, useRef } from "react";
 
@@ -14,12 +14,15 @@ export default function Shows() {
     const PAGE_LIMIT = 200;
     const TITLES_PER_PAGE = 20;
     const searchRef = useRef(null);
+    const initialized = useRef(false);
 
     const [selectedCategory, setSelectedCategory] = useState(ShowCategories.airingToday.tag);
     const [titles, setTitles] = useState();
     const [selectedTitle, setSelectedTitle] = useState();
     const [trailer, setTrailer] = useState();
     const [showDetails, setShowDetails] = useState();
+    const [showListData, setShowListData] = useState();
+    const [showsListData, setShowsListData] = useState();
 
     const [savedAiringTodayShows, setSavedAiringTodayShows] = useState();
     const [savedOnTheAirShows, setSavedOnTheAirShows] = useState();
@@ -67,36 +70,53 @@ export default function Shows() {
     }
 
     useEffect(()=>{
-        getAiringTodayShows(1).then((value)=>{
-            setSavedAiringTodayShows(value.data);
-            if (selectedCategory === ShowCategories.airingToday.tag) {
-                setTitles(value.data);
-                setSelectedTitle({...value.data.results[0]});
-            };
-        });
-        getOnTheAirShows(1).then((value)=>{
-            setSavedOnTheAirShows(value.data);
-            if (selectedCategory === ShowCategories.onTheAir.tag) {
-                setTitles(value.data);
-                setSelectedTitle({...value.data.results[0]});
-            };
-        });
-        getPopularShows(1).then((value)=>{
-            setSavedPopularShows(value.data);
-            if (selectedCategory === ShowCategories.popular.tag) {
-                setTitles(value.data);
-                setSelectedTitle({...value.data.results[0]});
-            };
-        });
-        getTopRatedShows(1).then((value)=>{
-            setSavedTopRatedShows(value.data);
-            if (selectedCategory === ShowCategories.topRated.tag) {
-                setTitles(value.data);
-                setSelectedTitle({...value.data.results[0]});
-            };
-        });
+        if (!initialized.current) {
+            initialized.current = true;
 
+            getAiringTodayShows(1).then((value)=>{
+                setSavedAiringTodayShows(value.data);
+                if (selectedCategory === ShowCategories.airingToday.tag) {
+                    setTitles(value.data);
+                    setSelectedTitle({...value.data.results[0]});
+                };
+            });
+            getOnTheAirShows(1).then((value)=>{
+                setSavedOnTheAirShows(value.data);
+                if (selectedCategory === ShowCategories.onTheAir.tag) {
+                    setTitles(value.data);
+                    setSelectedTitle({...value.data.results[0]});
+                };
+            });
+            getPopularShows(1).then((value)=>{
+                setSavedPopularShows(value.data);
+                if (selectedCategory === ShowCategories.popular.tag) {
+                    setTitles(value.data);
+                    setSelectedTitle({...value.data.results[0]});
+                };
+            });
+            getTopRatedShows(1).then((value)=>{
+                setSavedTopRatedShows(value.data);
+                if (selectedCategory === ShowCategories.topRated.tag) {
+                    setTitles(value.data);
+                    setSelectedTitle({...value.data.results[0]});
+                };
+            });
+    
+            getListShows("6318cdd7b4629f715e57e8b6").then((value) => {
+                const shows = value.shows ?? undefined;
+                if (shows) {
+                    setShowsListData(shows);
+                }
+            });
+        }
+        
     }, []);
+
+    useEffect(()=>{
+        if (selectedTitle) {
+            setShowListData(showsListData.find(show=>show.id == selectedTitle.id));
+        }
+    }, [showsListData]);
 
     useEffect(()=>{
         let selectedTitles;
@@ -121,12 +141,17 @@ export default function Shows() {
 
     useEffect(()=>{
         if (selectedTitle) {
+            if (showsListData) {
+                setShowListData(showsListData.find(show=>show.id == selectedTitle.id));
+            }
+            
             getShowTrailer(selectedTitle.id).then((value) => {
                 setTrailer(value.res);
             });
             getShowDetails(selectedTitle.id).then((value) => {
                 setShowDetails(value.data);
             });
+            
         }
     }, [selectedTitle]);
 
@@ -148,8 +173,17 @@ export default function Shows() {
             setCurrentSection={setCurrentSection}
         />
     </div>
+    
     const infoSection = <ShowInfo showDetails={showDetails}/>
-    const addShowSection = <AddShow/>
+    const addShowSection = <AddShow
+        showListData={showListData}
+        showsListData={showsListData}
+        numberOfEpisodes={showDetails?.number_of_episodes}
+        addShowToList={addShowToList}
+        setShowListData={setShowListData}
+        titleId={selectedTitle?.id}
+        deleteShowFromList={deleteShowFromList}
+    />
     const trailerSection = <TrailerVideo trailer={trailer}/>
     
     const section = (currentSection) => {
@@ -166,19 +200,20 @@ export default function Shows() {
     }
 
     return (
-        <div className="h-full">
+        <div>
             <Navbar active="shows"/>
-            <TitleOverview 
-                selectedTitle={selectedTitle} 
-                setCurrentSection={setCurrentSection} 
-                currentSection={currentSection}
-                isTrailerAvailable={trailer != null}
-            />
-            <div className="fixed w-full h-screen bg-haiti mx-auto">
-                <div className="flex justify-center">
-                    {section(currentSection)}
+            <div className="wrapper-billboard">
+                <div className="overview-space">
+                    <TitleOverview 
+                        selectedTitle={selectedTitle} 
+                        setCurrentSection={setCurrentSection} 
+                        currentSection={currentSection}
+                        isTrailerAvailable={trailer != null}
+                        isAdded={showListData != null}
+                    />
                 </div>
-            </div> 
+                {section(currentSection)}
+            </div>
         </div>
     )
 }

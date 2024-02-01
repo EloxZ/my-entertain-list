@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './TitleOverview.module.css';
 import Image from 'next/image';
 import { MovieGenres } from '@/utils/title-filter';
@@ -29,7 +29,7 @@ export default function TitleOverview(props) {
       />
     }
     overviewData =
-    <div className='overview-wrapper'>
+    <div className='overview-wrapper fade-in'>
       <div className='flex gap-10 justify-center'>
         <div className='overview-header'>
           <img className="rounded-md" alt={title} src={"https://image.tmdb.org/t/p/w500" + props.selectedTitle.poster_path} width={WIDTH} height={HEIGHT}/>
@@ -61,13 +61,13 @@ export default function TitleOverview(props) {
           />
           {trailerButton}
           <ElectricButton
-            text={(props.currentSection === "list")? "Nevermind" : "Add To List"}
+            text={(props.currentSection === "add")? (props.isAdded)? "Go back" : "Nevermind" : (props.isAdded)? "Edit From List" : "Add To List"}
             className="h-9 small-button"
             onClick={()=>{
-              if (props.currentSection === "list") {
+              if (props.currentSection === "add") {
                 props.setCurrentSection("titles");
               } else {
-                props.setCurrentSection("list");
+                props.setCurrentSection("add");
               }
             }}
           />
@@ -76,7 +76,7 @@ export default function TitleOverview(props) {
         
       </div>
     </div>
-    backgroundImage = <img className="min-w-full absolute -top-32" src={"https://image.tmdb.org/t/p/original" + props.selectedTitle.backdrop_path} fill="true"/>
+    backgroundImage = <img className="min-w-full absolute -top-32 fade-in" src={"https://image.tmdb.org/t/p/original" + props.selectedTitle.backdrop_path} fill="true"/>
   }
   
   return (

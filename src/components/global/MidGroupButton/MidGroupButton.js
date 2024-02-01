@@ -15,8 +15,8 @@ export default function MidGroupButton(props) {
     }
 
     return (
-        <a onClick={(props.isDisabled)? undefined : props.onClick} className={props.className + addClass + " px-4 py-2 text-sm font-medium border-t border-b border-r border-gray-200 hover:cursor-pointer focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700"}>
+        <div onClick={(props.isDisabled)? undefined : props.onClick} className={props.className + addClass + " group-button px-3 py-1 text-sm font-medium border-t border-b border-r border-gray-200 hover:cursor-pointer focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700"}>
             {props.text}
-        </a>
+        </div>
     )
 }

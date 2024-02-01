@@ -6,7 +6,7 @@ import TitleOverview from "@/components/billboard/TitleOverview/TitleOverview";
 import Titles from "@/components/billboard/Titles/Titles";
 import TrailerVideo from "@/components/billboard/TrailerVideo/TrailerVideo";
 import Navbar from "@/components/header/Navbar/Navbar";
-import { getNowPlayingMovies, getPopularMovies, getTopRatedMovies, getUpcomingMovies, getSearchMovies, getMovieTrailer, getMovieDetails } from "@/features/movies/data";
+import { getNowPlayingMovies, getPopularMovies, getTopRatedMovies, getUpcomingMovies, getSearchMovies, getMovieTrailer, getMovieDetails, getListMovies, addMovieToList, deleteMovieFromList } from "@/features/movies/data";
 import { MovieCategories } from "@/utils/title-filter";
 import { useState, useEffect, useRef } from "react";
 
@@ -20,6 +20,8 @@ export default function Movies() {
     const [selectedTitle, setSelectedTitle] = useState();
     const [trailer, setTrailer] = useState();
     const [movieDetails, setMovieDetails] = useState();
+    const [movieListData, setMovieListData] = useState();
+    const [moviesListData, setMoviesListData] = useState();
 
     const [savedNowPlayingMovies, setSavedNowPlayingMovies] = useState();
     const [savedPopularMovies, setSavedPopularMovies] = useState();
@@ -96,7 +98,20 @@ export default function Movies() {
             };
         });
 
+        getListMovies("6318cdd7b4629f715e57e8b6").then((value) => {
+            const movies = value.movies ?? undefined;
+            if (movies) {
+                setMoviesListData(movies);
+            }
+        });
+
     }, []);
+
+    useEffect(()=>{
+        if (selectedTitle) {
+            setMovieListData(moviesListData.find(movie=>movie.id == selectedTitle.id));
+        }
+    }, [moviesListData]);
 
     useEffect(()=>{
         let selectedTitles;
@@ -121,6 +136,10 @@ export default function Movies() {
 
     useEffect(()=>{
         if (selectedTitle) {
+            if (moviesListData) {
+                setMovieListData(moviesListData.find(movie=>movie.id == selectedTitle.id));
+            }
+
             getMovieTrailer(selectedTitle.id).then((value) => {
                 setTrailer(value.res);
             });
@@ -150,7 +169,14 @@ export default function Movies() {
     </div>
 
     const infoSection = <MovieInfo movieDetails={movieDetails}/>
-    const addMovieSection = <AddMovie/>
+    const addMovieSection = <AddMovie
+        movieListData={movieListData}
+        moviesListData={moviesListData}
+        addMovieToList={addMovieToList}
+        setMovieListData={setMovieListData}
+        titleId={selectedTitle?.id}
+        deleteMovieFromList={deleteMovieFromList}
+    />
     const trailerSection = <TrailerVideo trailer={trailer}/>
 
 
@@ -168,15 +194,18 @@ export default function Movies() {
     }
 
     return (
-        <div className="h-full">
+        <div className="bg-haiti">
             <Navbar active="movies"/>
-            <TitleOverview 
-                selectedTitle={selectedTitle} 
-                setCurrentSection={setCurrentSection} 
-                currentSection={currentSection}
-                isTrailerAvailable={trailer != null}
-            />
-            <div className="fixed w-full h-screen bg-haiti mx-auto">
+            <div className="overview-space">
+                <TitleOverview 
+                    selectedTitle={selectedTitle} 
+                    setCurrentSection={setCurrentSection} 
+                    currentSection={currentSection}
+                    isTrailerAvailable={trailer != null}
+                    isAdded={movieListData != null}
+                />
+            </div>
+            <div className="w-full mx-auto">
                 <div className="flex justify-center">
                     {section(currentSection)}
                 </div>

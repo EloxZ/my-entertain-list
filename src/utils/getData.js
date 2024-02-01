@@ -6,9 +6,9 @@ export default async function getData(url) {
             throw new Error(res.statusText);
         }
 
-        return await res.json();;
+        return await res.json();
 
     } catch (error) {
-        console.error('Error fetching data:', error.message);
+        console.error('Error fetching data:', error);
     }
 }

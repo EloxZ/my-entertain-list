@@ -1,12 +1,12 @@
 import React from 'react'
 
-export default function ShowSVG() {
+export default function ShowSVG(props) {
     return (
       <svg
       width={20}
       height={20}
       xmlns="http://www.w3.org/2000/svg"
-      fill="#fff"
+      fill={props.fill ?? "white"}
       stroke="#fff"
       viewBox="0 0 50 50"
     >
