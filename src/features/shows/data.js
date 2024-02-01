@@ -2,8 +2,7 @@ import getData from "@/utils/getData";
 import postData from "@/utils/postData";
 import deleteData from "@/utils/deleteData";
 
-
-const HOST = "http://localhost:3000";
+const HOST = "https://myentertainlist.netlify.app";
 
 async function getAiringTodayShows(page) {
     return getData(HOST + '/api/shows/airing_today?page='+page);

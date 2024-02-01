@@ -2,7 +2,7 @@ import getData from "@/utils/getData";
 import postData from "@/utils/postData";
 import deleteData from "@/utils/deleteData";
 
-const HOST = "http://localhost:3000";
+const HOST = "https://myentertainlist.netlify.app";
 
 async function getNowPlayingMovies(page) {
     return getData(HOST + '/api/movies/playing?page='+page);
