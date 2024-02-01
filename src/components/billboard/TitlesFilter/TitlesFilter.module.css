@@ -1,17 +1,10 @@
 .titlesFilter {
     display: flex;
     justify-content: space-between;
+    gap: 20px;
 }
 
 .categoriesFilter {
     display: flex;
     flex-wrap: nowrap;
 }
-
-@media (max-width: 790px) {
-    .titlesFilter {
-        flex-direction: column;
-        gap: 20px;
-        align-items: center;
-    }
-  }

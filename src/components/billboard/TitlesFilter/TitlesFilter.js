@@ -9,6 +9,8 @@ import ClockSVG from '@/components/icons/ClockSVG/ClockSVG';
 import StreamingSVG from '@/components/icons/StreamingSVG/StreamingSVG';
 import TrendingSVG from '@/components/icons/TrendingSVG/TrendingSVG';
 import StarSVG from '@/components/icons/StarSVG/StarSVG';
+import CalendarSVG from '@/components/icons/CalendarSVG/CalendarSVG';
+import PlaneSVG from '@/components/icons/PlaneSVG/PlaneSVG';
 
 export default function TitlesFilter(props) {
     const categoriesButtonGroup = loadCategories(props.categories, props.selectedCategory, props.setSelectedCategory);
@@ -20,7 +22,7 @@ export default function TitlesFilter(props) {
             </div>
             <div className='flex gap-2'>
                 <SearchInput id="movieSearch" searchRef={props.searchRef} onSearch={props.onSearch}/>
-                <ElectricButton text="Search" onClick={props.onSearch} className="small-button"/>
+                <ElectricButton text={<PlaneSVG width={25} height={25}/>} onClick={props.onSearch} />
             </div>
         </div>
     )
@@ -31,8 +33,10 @@ function loadCategories(categories, selectedCategory, setSelectedCategory) {
     const categoriesIcons = {
         'airToday' : <ClockSVG width={30} height={30} fill={selectedCategory === "airToday"? "white" : "black"}/>,
         'air' : <StreamingSVG width={30} height={30} fill={selectedCategory === "air"? "white" : "black"}/>,
+        'playing' : <StreamingSVG width={30} height={30} fill={selectedCategory === "playing"? "white" : "black"}/>,
         'popular' : <TrendingSVG width={30} height={30} fill={selectedCategory === "popular"? "white" : "black"}/>,
-        'top' : <StarSVG width={30} height={30} fill={selectedCategory === "top"? "white" : "black"}/>
+        'top' : <StarSVG width={30} height={30} fill={selectedCategory === "top"? "white" : "black"}/>,
+        'upcoming' : <CalendarSVG width={30} height={30} fill={selectedCategory === "upcoming"? "white" : "black"}/>,
     }
 
     if (categories) {
@@ -42,7 +46,7 @@ function loadCategories(categories, selectedCategory, setSelectedCategory) {
                 categoriesButtonGroup.push(
                     <LeftGroupButton
                         key={"button"+i}
-                        text={<div className='flex gap-1 items-center'>{categoriesIcons[categoriesValues[i].tag]}<a>{categoriesValues[i].name}</a></div>}
+                        text={<div className='flex gap-2 items-center'>{categoriesIcons[categoriesValues[i].tag]}<a className='category-button-text'>{categoriesValues[i].name}</a></div>}
                         isSelected={selectedCategory === categoriesValues[i].tag}
                         onClick={() => {setSelectedCategory(categoriesValues[i].tag)}}
                     />
@@ -51,7 +55,7 @@ function loadCategories(categories, selectedCategory, setSelectedCategory) {
                 categoriesButtonGroup.push(
                     <RightGroupButton
                         key={"button"+i}
-                        text={<div className='flex gap-1 items-center'>{categoriesIcons[categoriesValues[i].tag]}<a>{categoriesValues[i].name}</a></div>}
+                        text={<div className='flex gap-1 items-center'>{categoriesIcons[categoriesValues[i].tag]}<a className='category-button-text'>{categoriesValues[i].name}</a></div>}
                         isSelected={selectedCategory === categoriesValues[i].tag}
                         onClick={() => {setSelectedCategory(categoriesValues[i].tag)}}
                     />
@@ -60,7 +64,7 @@ function loadCategories(categories, selectedCategory, setSelectedCategory) {
                 categoriesButtonGroup.push(
                     <MidGroupButton
                         key={"button"+i}
-                        text={<div className='flex gap-1 items-center'>{categoriesIcons[categoriesValues[i].tag]}<a>{categoriesValues[i].name}</a></div>}
+                        text={<div className='flex gap-1 items-center'>{categoriesIcons[categoriesValues[i].tag]}<a className='category-button-text'>{categoriesValues[i].name}</a></div>}
                         isSelected={selectedCategory === categoriesValues[i].tag}
                         onClick={() => {setSelectedCategory(categoriesValues[i].tag)}}
                     />

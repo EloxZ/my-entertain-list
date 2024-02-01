@@ -13,7 +13,7 @@ export default function LeftGroupButton(props) {
     }
     
     return (
-        <div onClick={(props.isDisabled)? undefined : props.onClick}  className={props.className + addClass + " group-button px-3 py-1 text-sm font-medium border rounded-s-lg border-gray-200 hover:cursor-pointer"}>
+        <div onClick={(props.isDisabled)? undefined : props.onClick}  className={props.className + addClass + " group-button px-3 py-2 text-sm font-medium border rounded-s-lg border-gray-200 hover:cursor-pointer"}>
             {props.text}
         </div>
     )
