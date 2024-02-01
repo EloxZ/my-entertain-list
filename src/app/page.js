@@ -16,7 +16,7 @@ export default function Login() {
           <Logo/>
         </div>
         <div>
-          <p className='w-full text-center text-3xl mb-6 mt-16'>LOG IN</p>
+          <p className='w-full text-center text-3xl mb-6 mt-16'>LOG IN (Work In Progress)</p>
           <div className="mx-auto max-w-fit">
             <UsernameInput className='mb-4'/>
             <PasswordInput className='mb-5'/>
